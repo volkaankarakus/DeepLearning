@@ -86,7 +86,4 @@ plt.show() # kuyruklar saga dogru akan bir Gaussa pozitif skewness.(kuyrugun tai
 """
 skewness
 """
-
-
-
-                                                                                                                                   
+                                                                                                                                
