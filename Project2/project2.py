@@ -86,7 +86,8 @@ dt = DecisionTreeClassifier(random_state = random_state, max_depth = 2)
 
 rf = RandomForestClassifier(n_estimators = n_estimators, random_state = random_state, max_depth = 2)
 ada = AdaBoostClassifier(base_estimator = dt, n_estimators = n_estimators, random_state = random_state)
-v1 = VotingClassifier(estimators = [('svc',svc),('knn',knn),('dt',dt),('rf',rf),('ada',ada)])
+v1 = VotingClassifier(estimators = [('svc',svc),('knn',knn),('dt',dt),('rf',rf),('ada',ada)]) # votingClassifier, verilen algoritma sonuclarina 
+                                                                                                # gore en cok neyse onu dondurur.
 
 names = ["SVC", "KNN", "Decision Tree", "Random Forest", "AdaBoost", "V1"]
 classifiers = [svc, knn, dt, rf, ada, v1]
@@ -200,5 +201,8 @@ SVM ve KNN'i kiyaslayacak olursak :
     Class sayisi artarsa KNN daha mantikli.
     Genelde makalelerde verilen SVM binary classificationlar icin, KNN de multiclass problemler icin kullaniliyor.
     
-Random Forest : Decision Tree'lerden olusan bir Ensemble Learning algoritmasidir.
+Random Forest : Decision Tree'lerden olusan bir Ensemble Learning algoritmasidir. Bagging algoritmasi yani bizim Forestlarimiz
+    overfittingi onlemekte etkili.
+Boosting Algoritmasi ise bias'i azaltmada etkilidir.
+Voting Classifier, hepsinin gucunu kullanmak icin kullanabiliriz.
 """
