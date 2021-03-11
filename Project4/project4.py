@@ -128,3 +128,50 @@ filter_acc_top= data["Acceleration"] < top_limit_acc
 filter_acc = filter_acc_bottom & filter_acc_top
 
 data = data[filter_acc] # remove Horsepower outliers
+
+#%% Feature Engineering
+# Skewness
+# target dependant variable
+
+# dagilimin sekline bakalim:
+sns.distplot(data.target,fit=norm) # datanin target'inin dagilimina bakalim. fit=norm ile normal dagilima bakalim(siyah)
+
+# mu ve sigma degerlerine bakalim.
+(mu,sigma)=norm.fit(data['target'])
+print('mu : {}, sigma : {}'.format(mu,sigma)) # mu : 23.514572864321607, sigma : 7.806159061274433
+
+#%%
+# Dagilimin ne kadar gauss ne kadar normal dagilim oldugunu Histograma bakarak yapabilirim.
+# bir baska secenek de qq plot.
+plt.figure()
+stats.probplot(data['target'],plot=plt)
+plt.show()
+
+"""
+uclarda carpiklik var.
+"""
+#%%
+#skewnessligi azaltmak icin log transform yapalim.
+data['target']=np.log1p(data['target']) 
+plt.figure()
+sns.distplot(data.target,fit=norm)
+
+# mu ve sigma degerlerine bakalim.
+(mu,sigma)=norm.fit(data['target'])
+print('mu : {}, sigma : {}'.format(mu,sigma)) # mu : 1.4195010209477965, sigma : 0.0788133543086489
+
+plt.figure()
+stats.probplot(data['target'],plot=plt)
+plt.show()
+"""
+bastaki skewness ve carpiklik azalmis gorunuyor.
+"""
+
+#%% feature - independent variable
+skewed_features=data.apply(lambda x:skew(x.dropna())).sort_values(ascending=False)
+skewness=pd.DataFrame(skewed_features,columns=['skewed'])
+
+"""
+Box Cox Transformation ile skewneslik duzeltilebilir.(arastir)
+"""
+
